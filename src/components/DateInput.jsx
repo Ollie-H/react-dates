@@ -86,6 +86,7 @@ export default class DateInput extends React.Component {
       focused,
       onFocus,
       disabled,
+      isFlash
     } = this.props;
 
     const value = dateValue || dateString;
@@ -122,7 +123,7 @@ export default class DateInput extends React.Component {
             'DateInput__display-text--has-input': !!value,
             'DateInput__display-text--focused': focused,
             'DateInput__display-text--disabled': disabled,
-            'flash': this.props.isFlash
+            'flash': isFlash
           })}
         >
           {value || placeholder}
