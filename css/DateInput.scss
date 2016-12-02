@@ -49,6 +49,16 @@
   color: $react-dates-color-text;
 }
 
+.flash {
+  animation-name: flash;
+  animation-duration: 1.5s;
+}
+
+@keyframes flash {
+  0% { background: #ffffff }
+  50% { background: #99ede6 }
+}
+
 .DateInput__display-text--focused {
   background: $react-dates-color-focus;
   border-color: $react-dates-color-focus;
