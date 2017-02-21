@@ -143,7 +143,7 @@ export default class DateRangePicker extends React.Component {
 
     const endDate = toMomentObject(endDateString, this.getDisplayFormat());
 
-    const isEndDateValid = endDate && !isOutsideRange(endDapte) &&
+    const isEndDateValid = endDate && !isOutsideRange(endDate) &&
       !isInclusivelyBeforeDay(endDate, startDate);
     if (isEndDateValid) {
       onDatesChange({ startDate, endDate });
