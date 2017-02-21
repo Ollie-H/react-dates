@@ -22,13 +22,14 @@ import DayPicker from './DayPicker';
 import CloseButton from '../svg/close.svg';
 
 import DateRangePickerShape from '../shapes/DateRangePickerShape';
-
 import {
   START_DATE,
   END_DATE,
   HORIZONTAL_ORIENTATION,
   VERTICAL_ORIENTATION,
 } from '../../constants';
+
+moment.locale('ko');
 
 const propTypes = DateRangePickerShape;
 
@@ -142,7 +143,7 @@ export default class DateRangePicker extends React.Component {
 
     const endDate = toMomentObject(endDateString, this.getDisplayFormat());
 
-    const isEndDateValid = endDate && !isOutsideRange(endDate) &&
+    const isEndDateValid = endDate && !isOutsideRange(endDapte) &&
       !isInclusivelyBeforeDay(endDate, startDate);
     if (isEndDateValid) {
       onDatesChange({ startDate, endDate });
@@ -329,6 +330,7 @@ export default class DateRangePicker extends React.Component {
       onPrevMonthClick,
       onNextMonthClick,
       withPortal,
+      focusedInput,
       withFullScreenPortal,
       enableOutsideDays,
     } = this.props;
@@ -362,6 +364,10 @@ export default class DateRangePicker extends React.Component {
           orientation={orientation}
           enableOutsideDays={enableOutsideDays}
           modifiers={modifiers}
+          isStartDateFocused={focusedInput === START_DATE}
+          isEndDateFocused={focusedInput === END_DATE}
+          startDate={this.props.startDate || moment()}
+          endDate={this.props.endDate || moment()}
           numberOfMonths={numberOfMonths}
           onDayMouseEnter={this.onDayMouseEnter}
           onDayMouseLeave={this.onDayMouseLeave}
