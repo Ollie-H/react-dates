@@ -8,7 +8,7 @@ export default {
   startDate: momentPropTypes.momentObj,
   endDate: momentPropTypes.momentObj,
   focusedInput: FocusedInputShape,
-  minimumNights: PropTypes.number,
+  minimumNights: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   isDayBlocked: PropTypes.func,
   isOutsideRange: PropTypes.func,
   enableOutsideDays: PropTypes.bool,

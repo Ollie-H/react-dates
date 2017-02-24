@@ -18,6 +18,8 @@ import OrientationShape from '../shapes/OrientationShape';
 
 import { HORIZONTAL_ORIENTATION, VERTICAL_ORIENTATION } from '../../constants';
 
+import momentPropTypes from 'react-moment-proptypes';
+
 const CALENDAR_MONTH_WIDTH = 300;
 const DAY_PICKER_PADDING = 9;
 const MONTH_PADDING = 23;
@@ -44,6 +46,10 @@ const propTypes = {
 
   // i18n
   monthFormat: PropTypes.string,
+  isStartDateFocused: PropTypes.bool,
+  isEndDateFocused: PropTypes.bool,
+  startDate: momentPropTypes.momentObj,
+  endDate: momentPropTypes.momentObj
 };
 
 const defaultProps = {
@@ -99,6 +105,22 @@ export default class DayPicker extends React.Component {
         this.adjustDayPickerHeight();
       }
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let currentMonth = moment();
+
+    if (nextProps.isStartDateFocused) {
+      currentMonth = nextProps.startDate;
+    }
+
+    if (nextProps.isEndDateFocused) {
+      currentMonth = nextProps.endDate;
+    }
+
+    this.setState({
+        currentMonth
+    });
   }
 
   getMonthHeightByIndex(i) {
