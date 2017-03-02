@@ -81,11 +81,13 @@ export default class DayPicker extends React.Component {
       currentMonth: moment(),
       monthTransition: null,
       translationValue: 0,
+      isChangeCurrentMonth: false
     };
 
     this.handlePrevMonthClick = this.handlePrevMonthClick.bind(this);
     this.handleNextMonthClick = this.handleNextMonthClick.bind(this);
     this.updateStateAfterMonthTransition = this.updateStateAfterMonthTransition.bind(this);
+    this.onOutsideClick = this.onOutsideClick.bind(this);
   }
 
   componentDidMount() {
@@ -119,7 +121,7 @@ export default class DayPicker extends React.Component {
     }
 
     this.setState({
-        currentMonth
+        currentMonth: this.state.isChangeCurrentMonth ? this.state.currentMonth : currentMonth
     });
   }
 
@@ -202,6 +204,14 @@ export default class DayPicker extends React.Component {
     );
   }
 
+  onOutsideClick() {
+    this.setState({
+      isChangeCurrentMonth: false
+    }, ()=> {
+      this.props.onOutsideClick();
+    })
+  }
+
   updateStateAfterMonthTransition() {
     const { currentMonth, monthTransition } = this.state;
 
@@ -220,6 +230,7 @@ export default class DayPicker extends React.Component {
 
     this.setState({
       currentMonth: newMonth,
+      isChangeCurrentMonth: true,
       monthTransition: null,
       translationValue: 0,
     });
@@ -418,7 +429,7 @@ export default class DayPicker extends React.Component {
 
     return (
       <div className={dayPickerClassNames} style={dayPickerStyle} >
-        <OutsideClickHandler onOutsideClick={onOutsideClick}>
+        <OutsideClickHandler onOutsideClick={this.onOutsideClick}>
           {this.renderNavigation()}
 
           <div className="DayPicker__week-headers">
